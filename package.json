@@ -13,6 +13,7 @@
     "csv-parser": "^2.3.2",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.3",
-    "mongod": "^2.0.0"
+    "mongod": "^2.0.0",
+    "mongoose": "^5.9.9"
   }
 }
