@@ -1,0 +1,18 @@
+{
+  "name": "moviemarketplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Chloe Quinto",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
+    "mongod": "^2.0.0"
+  }
+}
