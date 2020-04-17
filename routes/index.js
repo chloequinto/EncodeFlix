@@ -7,6 +7,10 @@ const constructorMethod = (app) => {
     app.use('/login', loginRoutes)
     app.use('/home', homeRoutes)
 
+    app.get('/home', function(req, res) {
+        res.redirect('home');
+    });
+
     // redirect to login 
     app.get('/', (req, res) => {
         res.redirect('login')

@@ -13,14 +13,17 @@ passport.use(new JsonStrategy(
     function(username, password, done){
         // get username 
         usersData.getUserByName(username, function(err, user){
+            console.log("Passport Verify")
             if(err){
+                console.log("error")
                 return done(err)
             }
             if (!user){
+                console.log("no user")
                 return done(null,  false);
             }
             //compare password to hashed password 
-            bcrypt.compare(password, user.hashedPassword, (err, res) =>{
+            bcrypt.compare(password, user.hashPassword, (err, res) =>{
                 if (res === true){
                     return done(null, user)
                 }else{
@@ -45,6 +48,7 @@ passport.serializeUser(function(user, cb) {
 
 
 router.post("/", function (req, res, next){
+    console.log("LOGIN POST")
     passport.authenticate('json', function(err, user, info){
         // Authentication Failed Display Error Msg 
         if (err){
@@ -52,17 +56,21 @@ router.post("/", function (req, res, next){
         }
         if(!user){
             //TODO 
-            console.log("Authentication fail")
+            console.log("Authentication Fail")
         }
         //Authentication Succeeded Redirect to Home Page 
         req.logIn(user, function(err){
             if(err){
                 return next(err); 
             }
-            res.send({"url":"/home", "user":user});
+            console.log("SENDING TO HOME")
+            // res.redirect("home");
+            // console.log(res.send({"url":"/home", "user":user}))
+            // res.send({"url": "/rolecheck", "user": user});
+            res.render('home')
         });
-    })(req, res, next)
-})
+    })(req, res, next);
+});
 
 // Render Login Handlebars 
 router.get('/', (req,res) => {

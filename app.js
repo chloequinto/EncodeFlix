@@ -1,8 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy; 
-const bcrypt = require('bcrypt-nodejs')
+const Strategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt-nodejs');
 
 
 const app = express();
@@ -13,8 +13,8 @@ const exphbs = require('express-handlebars');
 app.use('/public', static);
 // app.use(bodyParser.json)
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.json()); //figure out if this is needed 
 app.use(express.urlencoded({ extended: true }));
@@ -25,32 +25,33 @@ app.set('view engine', 'handlebars');
 
 configRoutes(app);
 
-// passport.use(new Strategy(
-// 	function(username, password, done) {
-// 	  users.getUserByName(username).then((user) => {
-// 		bcrypt.compare(password, user.hashedPassword, (err, res) => {
-// 		  if (res === true) {
-// 			return done(null, user);
-// 		  } else {
-// 			return done(null, false);
-// 		  }
-// 		});
-// 	  }).catch(function() {
-// 		  return done(null, false); 
-// 	  });
-//   }));
+passport.use(new Strategy(
+	function(username, password, done) {
+	  users.findByUsername(username).then((user) => {
+		bcrypt.compare(password, user.hashedPassword, (err, res) => {
+		  if (res === true) {
+			return done(null, user);
+		  } else {
+			return done(null, false);
+		  }
+		});
+	  }).catch(function() {
+		  return done(null, false); 
+	  });
+  }));
   
-// passport.serializeUser(function(user, cb) {
-// cb(null, user._id);
-// });
+passport.serializeUser(function(user, cb) {
+	console.log("Serializing user");
+	console.log(user._id) // err here 
+	cb(null, user._id);
+});
   
-//   passport.deserializeUser(function(id, cb) {
-// 	users.findById(id).then((user) => {
-// 	  if (!user) { return cb('error'); }
-// 	  cb(null, user);
-// 	});
-// });
-
+passport.deserializeUser(function(id, cb) {
+users.findById(id).then((user) => {
+	if (!user) { return cb('error'); }
+	cb(null, user);
+});
+});
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'donttellme', resave: false, saveUninitialized: false }));
