@@ -8,7 +8,6 @@ module.exports = {
     async getAllMovies(){ 
         const moviesCollection = await movies(); 
         const moviesAll = await moviesCollection.find({}).toArray();
-        console.log(moviesAll)
         return moviesAll;
     },
 

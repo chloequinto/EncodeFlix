@@ -7,13 +7,18 @@ h1{
     text-align: left;
 }
 
-p, h4{
+h4{
     color: black; 
     font-family: 'Hind', sans-serif;
+} 
+
+p{ 
+    color: black
 }
 
 body{
     background-color: white;
+    margin: 2% 10% 10% 2%;
 }
 
 table { 
@@ -29,3 +34,10 @@ th, td{
     text-align: left;
 
 }
+
+.movieSelection{
+    padding-top: 3%;
+}
+
+
+

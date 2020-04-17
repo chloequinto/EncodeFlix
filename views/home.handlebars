@@ -1,12 +1,19 @@
-<div> 
+<div class="movieSelection"> 
 
     <h4>Movie Selection</h4>
 
-    {{# each content}}
-        {{this.movieID}}
-        {{this.movieName}}
-    {{/each}}
-    <p> END </p>
-
+    <div class="card-deck">
+        {{# each content}}
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">{{this.movieID}}</h5>
+                <p class="card-text">{{this.movieName}}</p>
+                </div>
+                <div class="card-footer">
+                <small class="text-muted">TODO: Add Genre</small>
+                </div>
+            </div>
+        {{/each}}
+    </div>
 </div> 
 
