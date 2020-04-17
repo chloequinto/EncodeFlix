@@ -5,10 +5,10 @@ const movies = mongoCollections.movies;
 
 
 module.exports = { 
-    async getAllMovies(id){ 
+    async getAllMovies(){ 
         const moviesCollection = await movies(); 
         const moviesAll = await moviesCollection.find({}).toArray();
-        // console.log(moviesAll)
+        console.log(moviesAll)
         return moviesAll;
     },
 

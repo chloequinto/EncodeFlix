@@ -20,9 +20,6 @@ const main = async() => {
 
     try{ 
 
-        const movieCollection = await mongoCollections(); 
-        var dropDB = movieCollection.drop(); 
-
         // Read CSV file and call JS file to push to database 
         fs.createReadStream('moviesSmall.csv')
             .pipe(csv())

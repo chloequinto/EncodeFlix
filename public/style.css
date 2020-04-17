@@ -8,22 +8,22 @@ h1{
 }
 
 p, h4{
-    color: white; 
+    color: black; 
     font-family: 'Hind', sans-serif;
 }
 
 body{
-    background-color: black;
+    background-color: white;
 }
 
 table { 
     width: 100%;
-    border: 1px solid white; 
+    border: 1px solid black; 
     border-collapse: collapse;
 }
 
 th, td{ 
-    color: white;
+    color: black;
     font-family: 'Hind', sans-serif;
     padding: 15px;
     text-align: left;
