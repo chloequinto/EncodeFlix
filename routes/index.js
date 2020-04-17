@@ -1,24 +1,27 @@
 const pushToDB = require('../data/pushToDB');
-const mongoose = require("mongoose");
+
+const loginRoutes = require('./login')
+const homeRoutes = require('./home')
 
 const constructorMethod = (app) => { 
- 
-    app.get('/', async (req, res) => {
+    app.use('/login', loginRoutes)
+    app.use('/home', homeRoutes)
 
-        let movies = await pushToDB.getAllMovies();
-        // console.log(movies)
-        res.render('home', {style: 'style.css', content: movies});
+    // redirect to login 
+    app.get('/', (req, res) => {
+        res.redirect('login')
+    })
+    
+    app.use("*", (req, res) => { 
+        res.sendStatus(404)
+    })
+
+    // app.get('/', async (req, res) => {
+    //     let movies = await pushToDB.getAllMovies();
+    //     res.render('home', {style: 'style.css', content: movies});
+    // });
 
 
-    });
 
-
-    // app.get('/', (req, res, next)=> { 
-    //     Content.find(function(err, content){
-    //         res.render('home', {style: 'style.css', movies:content});
-    //         console.log(content)
-            
-    //     })
-    // })
 };  
 module.exports = constructorMethod;
