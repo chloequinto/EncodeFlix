@@ -63,11 +63,12 @@ router.post("/", function (req, res, next){
             if(err){
                 return next(err); 
             }
+            // res.render('home')
             console.log("SENDING TO HOME")
             // res.redirect("home");
             // console.log(res.send({"url":"/home", "user":user}))
-            // res.send({"url": "/rolecheck", "user": user});
-            res.render('home')
+            res.send({"url": "/home", "user": user});
+            // res.send("/home")
         });
     })(req, res, next);
 });

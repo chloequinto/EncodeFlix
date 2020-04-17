@@ -6,12 +6,18 @@ let passwordField = document.getElementById('passwordField');
 
 
 function loginRequest(){ 
-    console.log(usernameField.value) //reading in correctly 
-    console.log(passwordField.value)
+    // console.log(usernameField.value) //reading in correctly 
+    // console.log(passwordField.value)
     sendLogin(usernameField.value, passwordField.value, (res) =>{
+        // console.log(res)
+        // response = JSON.parse(res.response); // error 
         console.log(res)
-        response = JSON.parse(res.response);
-        
+        console.log(res.response)
+        response = JSON.parse(res.response)
+        console.log(response["url"])
+        // console.log(window.location.href.slice(0, 22))
+        window.location = window.location.href.slice(0,21) + response["url"]
+        // window.location = "http://localhost:3000/home"
     })
 
 }
