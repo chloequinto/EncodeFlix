@@ -2,17 +2,22 @@ const pushToDB = require('../data/pushToDB');
 
 const loginRoutes = require('./login')
 const homeRoutes = require('./home')
+const errRoutes = require('./err')
+const logoutRoutes = require('./logout')
 
 const constructorMethod = (app) => { 
     app.use('/login', loginRoutes)
     app.use('/home', homeRoutes)
+    app.use('/errPage', errRoutes)
+    app.use('/logout', logoutRoutes)
 
     app.get('/home', function(req, res) {
+        console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
         res.redirect('home');
     });
 
-    // redirect to login 
     app.get('/', (req, res) => {
+        console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
         res.redirect('login')
     })
     
@@ -20,10 +25,6 @@ const constructorMethod = (app) => {
         res.sendStatus(404)
     })
 
-    // app.get('/', async (req, res) => {
-    //     let movies = await pushToDB.getAllMovies();
-    //     res.render('home', {style: 'style.css', content: movies});
-    // });
 
 
 

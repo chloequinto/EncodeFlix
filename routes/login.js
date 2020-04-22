@@ -8,12 +8,9 @@ const bcrypt = require('bcrypt-nodejs')
 
 const usersData = require("../data/users")
 
-// Verify User 
 passport.use(new JsonStrategy(
     function(username, password, done){
-        // get username 
         usersData.getUserByName(username, function(err, user){
-            console.log("Passport Verify")
             if(err){
                 console.log("error")
                 return done(err)
@@ -22,7 +19,6 @@ passport.use(new JsonStrategy(
                 console.log("no user")
                 return done(null,  false);
             }
-            //compare password to hashed password 
             bcrypt.compare(password, user.hashPassword, (err, res) =>{
                 if (res === true){
                     return done(null, user)
@@ -36,19 +32,19 @@ passport.use(new JsonStrategy(
 
 passport.serializeUser(function(user, cb) {
     cb(null, user._id);
-  });
+});
   
-  passport.deserializeUser(function(id, cb) {
+passport.deserializeUser(function(id, cb) {
     usersData.getUserByName(username).then((user) => {
-      if (!user) { return cb("error"); }
-      cb(null, user);
+        if (!user) { return cb("error"); }
+        cb(null, user);
     });
-  });
+});
   
 
 
 router.post("/", function (req, res, next){
-    console.log("LOGIN POST")
+    console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
     passport.authenticate('json', function(err, user, info){
         // Authentication Failed Display Error Msg 
         if (err){
@@ -63,20 +59,39 @@ router.post("/", function (req, res, next){
             if(err){
                 return next(err); 
             }
-            // res.render('home')
-            console.log("SENDING TO HOME")
-            // res.redirect("home");
-            // console.log(res.send({"url":"/home", "user":user}))
+            req.session.user = {id: user._id, user: user.username}
+            console.log(req.session.user)
             res.send({"url": "/home", "user": user});
-            // res.send("/home")
+
         });
     })(req, res, next);
 });
 
-// Render Login Handlebars 
+
 router.get('/', (req,res) => {
     res.render('login/form')
 });
+
+
+
+router.post('/logout', async(req, res) => { 
+    if (req.session.user){
+        authenticated = "Authenticated User" 
+    }
+    if (!req.session.user){
+        authenticated = "Non-Authenticated User" 
+    }
+    console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl+ " " + authenticated)
+    req.session.destroy(function(err){ 
+        if (err){ 
+            console.log(err); 
+        }else{ 
+            res.redirect('/logout');
+        }
+    }); 
+
+    
+})
 
 
 module.exports = router;
