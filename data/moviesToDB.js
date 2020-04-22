@@ -16,12 +16,12 @@ const pushToDB = require('../data/pushToDB')
 const main = async() => { 
 
     console.log("========================================="); 
-    console.log("Parsing moviesSmall.csv")
+    console.log("Parsing movies.csv")
 
     try{ 
 
         // Read CSV file and call JS file to push to database 
-        fs.createReadStream('moviesSmall.csv')
+        fs.createReadStream('moviesMedium.csv')
             .pipe(csv())
             .on('data', (data) => pushToDB.create(data.movieID, data.movieName))
             .on('end', () => {console.log("Finished Reading CSV")});

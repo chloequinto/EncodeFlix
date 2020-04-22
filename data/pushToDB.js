@@ -7,8 +7,10 @@ const movies = mongoCollections.movies;
 module.exports = { 
     async getAllMovies(){ 
         const moviesCollection = await movies(); 
-        const moviesAll = await moviesCollection.find({}).toArray();
-        return moviesAll;
+        // const moviesAll = await moviesCollection.find({}).toArray();
+        const moviesRandom = await moviesCollection.aggregate([{ $sample: { size: 6 } }]).toArray(); 
+        // console.log(moviesRandom)
+        return moviesRandom;
     },
 
     async getMoviebyID(id){

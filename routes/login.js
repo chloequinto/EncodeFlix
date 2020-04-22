@@ -60,7 +60,6 @@ router.post("/", function (req, res, next){
                 return next(err); 
             }
             req.session.user = {id: user._id, user: user.username}
-            console.log(req.session.user)
             res.send({"url": "/home", "user": user});
 
         });

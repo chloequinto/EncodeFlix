@@ -3,7 +3,6 @@ const router = express.Router();
 
 
 router.get("/", async(req, res) => { 
-    console.log(req.session)
     console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
     req.session.destroy(function(err){ 
         if (err){ 
