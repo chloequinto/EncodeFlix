@@ -27,7 +27,7 @@ module.exports = {
             throw `[ERROR] ${name} could not be added`
         }
 
-
+        console.log("Successfully Uploaded User to DB")
     }, 
 
     async getUserByName(name, cb){

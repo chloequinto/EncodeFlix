@@ -9,14 +9,14 @@
             <div class="col-sm-4 ">
             <div class="card-columns-fluid">
                 <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">ID: {{this.movieID}}</h5>
-                    <p class="card-text">{{this.movieName}}</p>
-                    <a href="#" class="btn btn-primary">Like</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">TODO: Add Genre</small>
-                </div>
+                    <div class="card-body">
+                        <h5 class="card-title">ID: {{this.movieID}}</h5>
+                        <p class="card-text">{{this.movieName}}</p>
+                        <a href="#" class="btn btn-primary" id="likeID" onClick="findID({{this.movieID}})">Like</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">TODO: Add Genre</small>
+                    </div>
                 </div>
             </div>
             </div>
@@ -33,4 +33,6 @@
     <a href="/logout" class="btn btn-outline-danger">Logout</a>
 </div>
 
+
+<script src="/public/js/home.js"></script>
 

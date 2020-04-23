@@ -15,7 +15,7 @@ module.exports = {
 
     async getMoviebyID(id){
         if (!id){ 
-            throw `[ERROR] ${id} not found`
+            throw "[ERROR] id not found"
         }
         const moviesCollection = await movies();
 
@@ -41,7 +41,8 @@ module.exports = {
 
         let newMovie = {
             movieID: movieID, 
-            movieName: movieName
+            movieName: movieName,
+            numLikes: 0
         };
 
         const insertInfo = await moviesCollection.insertOne(newMovie); 

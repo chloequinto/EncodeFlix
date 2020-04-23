@@ -11,26 +11,25 @@ const dbConnection = require("../config/mongoConnection");
 var ObjectID = require('mongodb').ObjectID;
 const movies = mongoCollections.movies;
 
-const pushToDB = require('../data/pushToDB')
+const pushToDB = require('./pushToDB')
+const users = require('./users')
 
 const main = async() => { 
 
-    console.log("========================================="); 
-    console.log("Parsing movies.csv")
-
     try{ 
-
-        // Read CSV file and call JS file to push to database 
+        // Push Movies into Database 
         fs.createReadStream('moviesMedium.csv')
             .pipe(csv())
             .on('data', (data) => pushToDB.create(data.movieID, data.movieName))
             .on('end', () => {console.log("Finished Reading CSV")});
 
-
+        //Push Users into Database 
+        await users.addUser("Chloe", "apple")
     
     }catch(error){
         console.log(error)
     }
+
 
     
 
