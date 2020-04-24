@@ -4,6 +4,7 @@ const users = mongoCollections.users;
 const movies = mongoCollections.movies;
 const bcrypt = require('bcrypt-nodejs')
 
+
 module.exports = { 
     async addUser(name, password, hasModel, hasRecc){ 
         if(typeof name !== "string" || name === null){
@@ -99,30 +100,22 @@ module.exports = {
             throw `[ERROR] ${id} not found`
         }
 
-        movieIDs = []
+        moviesRecc = []
         recc = JSON.parse(foundUser.hasRecc)
 
         const moviesCollection = await movies(); 
         if(foundUser.hasModel === 1){
+            console.log("User has model recc")
             for (x in recc){
-                // movieIDs.push(recc[x][0])
                 let currMovie = await moviesCollection.findOne({movieID: recc[x][0].toString()});
-                // console.log(currMovie)
-                movieIDs.push(currMovie._id)
+                moviesRecc.push(currMovie)
             }
-            // console.log(movieIDs)
-            // var movieObj = movieIDs.map(function(id) { return new ObjectID(id); });
-            // ids = 
-            const moviesRecc  = await moviesCollection.find({ 
-                "_id": {
-                    $in: [new ObjectID("5ea25049a82624327e520801"), new ObjectID("5ea25049a82624327e520803")]
-                }
-            });
-            // console.log(moviesRecc)
+
             return moviesRecc
 
         }else {
-            let movies = await pushToDB.getAllMovies();
+            console.log("User does not have model recc")
+            let movies = await movies.getAllMovies();
             console.log("User has no model recommendation")
             return movies 
         }

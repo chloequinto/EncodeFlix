@@ -89,7 +89,7 @@ def test(user_recc,xtrain, inputLayer, outputLayer):
     count = 0 
     predictTuple = []
 
-    for i in range(len(predict[0])): 
+    for i in range(1,len(predict[0])): 
         if count == 20:
             break 
         predictTuple.append([i, predict[0][i]])

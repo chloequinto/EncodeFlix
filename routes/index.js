@@ -1,4 +1,4 @@
-const pushToDB = require('../data/pushToDB');
+const movies = require('../data/movies');
 
 const loginRoutes = require('./login')
 const homeRoutes = require('./home')
