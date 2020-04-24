@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router(); 
 const path = require('path');
 const likes = require("../data/addLike")
+const users = require('../data/users')
 
 
 router.get("/", async(req, res) => { 
     console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
+
+    currID = req.session.user.id
     req.session.destroy(function(err){ 
         if (err){ 
             console.log(err); 
@@ -32,14 +35,21 @@ router.get("/", async(req, res) => {
     }); 
 
 
-
     proc.stderr.on('data', (data) => {
         console.error(`Warnings:\n${data}`);
     });
 
     proc.stdout.on('end', async function(code){
-        console.log("result: " + result)
+        console.log("Model's Recommendation:" + result)
+
+        //update user info 
+        var hasModelUpdated = await users.updateModelRecc(currID, result);
+        console.log(hasModelUpdated) 
     })
+
+
+
+    
 
 
 

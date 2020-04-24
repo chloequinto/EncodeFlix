@@ -24,7 +24,7 @@ const main = async() => {
             .on('end', () => {console.log("Finished Reading CSV")});
 
         //Push Users into Database 
-        await users.addUser("Chloe", "apple")
+        await users.addUser("Chloe", "apple", 0, [])
     
     }catch(error){
         console.log(error)
