@@ -28,20 +28,23 @@ module.exports = {
         return movieFoundId;
     },
 
-    async create(movieID, movieName){
+    async create(movieID, movieName, genre){
         if (movieID === null || typeof movieID != "string"){
-            throw `[ERROR] ${movieID} is null / not string`
+            throw `[ERROR] movieIDis null / not string`
         }
 
         if (movieName === null || typeof movieName != "string"){
-            throw `[ERROR] ${movieName} is null/not string`
+            throw `[ERROR] movieName is null/not string`
         }
-
+        if (genre === null || typeof genre != "string"){
+            throw `[ERROR] genre is null/not string`
+        }
         const moviesCollection = await movies();
 
         let newMovie = {
             movieID: movieID, 
             movieName: movieName,
+            genre: genre, 
             numLikes: 0
         };
 

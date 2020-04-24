@@ -18,9 +18,9 @@ const main = async() => {
 
     try{ 
         // Push Movies into Database 
-        fs.createReadStream('moviesMedium.csv')
+        fs.createReadStream('moviesSmall.csv')
             .pipe(csv())
-            .on('data', (data) => pushToDB.create(data.movieID, data.movieName))
+            .on('data', (data) => pushToDB.create(data.movieID, data.movieName, data.genre))
             .on('end', () => {console.log("Finished Reading CSV")});
 
         //Push Users into Database 

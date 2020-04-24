@@ -6,7 +6,6 @@ const movies = mongoCollections.movies;
 
 module.exports = { 
     async addLikeToMovies(id){ 
-        console.log("addLikeToMovies")
         if (!id){ 
             throw "[ERROR] id not found"
         }
@@ -17,21 +16,35 @@ module.exports = {
         if (movieFoundId === null){
             throw "[ERROR] No movie with that id";
         }
-        console.log(movieFoundId)
+
         const updateInfo = await moviesCollection.updateOne(
             {"_id": new ObjectID(movieFoundId._id)}, 
-            {$inc:{
-                numLikes: 1
-                }
+            {$inc: {numLikes: 1}
             }
         )
-    
+        
         if (updateInfo.modifiedCount === 0){ 
             throw "[ERROR] Could not update movie"
         }
         
-        console.log("Updated Movie Number of Likes")
+        const updatedMovieInfo = await moviesCollection.findOne({movieID: id})
 
+        console.log(updatedMovieInfo);
+        console.log("Updated Movie Number of Likes");
+    }, 
 
+    async getLikes(){
+        const moviesCollection = await movies(); 
+        const getMovie = await moviesCollection.find({}).toArray()
+        allMovieRecc = []
+        // console.log(getMovie)
+        for (x in getMovie){ 
+            // console.log(getMovie.movieID)
+            var currMovie = (getMovie[x].movieID, getMovie[x].numLikes)
+            allMovieRecc.push(currMovie)
+        }
+
+        // console.log(allMovieRecc)
+        return allMovieRecc
     }
 }
