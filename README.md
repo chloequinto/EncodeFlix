@@ -1,12 +1,12 @@
 # EncodeFlix
-A movie recommendation web app that uses deep autoencoders for collaborative filtering on top of a node.js server. 
-
+Basically Netflix but with Deep Autoencoders. 
 
 ### Introduction 
-EncodeFlix was developed inorder to understand how machine learning models can be intergrated with a full stack web app. And to futher enforce an understanding of Autoencoders and other Collaborative Filtering ML models. 
+EncodeFlix was developed in order to understand how machine learning models can be intergrated with a full stack web app. And to futher enforce an understanding of Autoencoders and other Collaborative Filtering ML models. 
 
 This web app generates a view of several movies that the user can rate 1-5. After logout, the app spawns a python script to generate the most highly recommended  movies for the user. When the user logs back in, the home page will have the most recommended movies from the model. 
 
+Architecutrally, the deep autoencoder has two hidden layers 
 
 ### Requirements 
 To set up EncodeFlix on your server, you will need Python3 and NodeJS. In addition, you should have installed NPM and PIP for installing necessary libraries 
