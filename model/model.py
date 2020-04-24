@@ -30,22 +30,28 @@ def training(ratings_pivot):
     xtrain, xtest = train_test_split(ratings_pivot, train_size=0.8)
 
     inputLayer_nodes = xtrain.shape[1]
-    hiddenLayer_nodes = 256
+    hiddenLayer1_nodes = 256
+    hiddenLayer2_nodes = 256
     outputLayer_nodes = xtrain.shape[1]
 
-    hiddenLayer_weights = {'weights': tf.Variable(tf.random_normal([inputLayer_nodes+1, hiddenLayer_nodes]))}
-    outputLayer_weights = {'weights': tf.Variable(tf.random_normal([hiddenLayer_nodes+1, outputLayer_nodes]))}
+    hiddenLayer1_weights = {'weights': tf.Variable(tf.random_normal([inputLayer_nodes+1, hiddenLayer1_nodes]))}
+    hiddenLayer2_weights = {'weights': tf.Variable(tf.random_normal([hiddenLayer1_nodes+1, hiddenLayer2_nodes+1]))}
+    outputLayer_weights = {'weights': tf.Variable(tf.random_normal([hiddenLayer2_nodes+2, outputLayer_nodes]))}
 
 
     inputLayer = tf.placeholder('float', [None, xtrain.shape[1]])
     inputLayer_const = tf.fill([tf.shape(inputLayer)[0], 1], 1.0)
     inputLayer_concat = tf.concat([inputLayer, inputLayer_const],1)
 
-    hiddenLayer = tf.nn.sigmoid(tf.matmul(inputLayer_concat, hiddenLayer_weights["weights"]))
-    hiddenLayer_const = tf.fill([tf.shape(hiddenLayer)[0],1],1.0)
-    hiddenLayer_concat = tf.concat([hiddenLayer, hiddenLayer_const],1)
+    hiddenLayer1 = tf.nn.sigmoid(tf.matmul(inputLayer_concat, hiddenLayer1_weights["weights"]))
+    hiddenLayer1_const = tf.fill([tf.shape(hiddenLayer1)[0],1],1.0)
+    hiddenLayer1_concat = tf.concat([hiddenLayer1, hiddenLayer1_const],1)
 
-    outputLayer = tf.matmul(hiddenLayer_concat, outputLayer_weights["weights"])
+    hiddenLayer2 = tf.nn.sigmoid(tf.matmul(hiddenLayer1_concat, hiddenLayer2_weights["weights"]))
+    hiddenLayer2_const = tf.fill([tf.shape(hiddenLayer2)[0],1],1.0)
+    hiddenLayer2_concat = tf.concat([hiddenLayer2, hiddenLayer2_const],1)
+
+    outputLayer = tf.matmul(hiddenLayer2_concat, outputLayer_weights["weights"])
     outputValue = tf.placeholder('float', [None, xtrain.shape[1]])
 
     mse = tf.reduce_mean(tf.square(outputLayer - outputValue))
@@ -58,7 +64,7 @@ def training(ratings_pivot):
     sess.run(init)
 
     batchSize = 100 
-    numEpochs = 1
+    numEpochs = 200
     totalUsers = xtrain.shape[0]
 
 
