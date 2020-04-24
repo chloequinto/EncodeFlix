@@ -6,8 +6,6 @@ EncodeFlix was developed in order to understand how machine learning models can 
 
 This web app generates a view of several movies that the user can rate 1-5. After logout, the app spawns a python script to generate the most highly recommended  movies for the user. When the user logs back in, the home page will have the most recommended movies from the model. 
 
-Architecutrally, the deep autoencoder has two hidden layers 
-
 ### Requirements 
 To set up EncodeFlix on your server, you will need Python3 and NodeJS. In addition, you should have installed NPM and PIP for installing necessary libraries 
 
