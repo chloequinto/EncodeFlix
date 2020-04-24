@@ -4,7 +4,6 @@ let passwordField = document.getElementById('passwordField');
 
 
 
-
 function loginRequest(){ 
     sendLogin(usernameField.value, passwordField.value, (res) =>{
         response = JSON.parse(res.response)
@@ -12,6 +11,8 @@ function loginRequest(){
         window.location = window.location.href.slice(0,21) + response["url"]
     })
 }
+
+  
 
 let sendLogin = (username, password, callback) => {
     let xhttp = new XMLHttpRequest();
@@ -28,6 +29,7 @@ let sendLogin = (username, password, callback) => {
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send("{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}");
 }
+
 
 if(loginButton){
     loginButton.addEventListener('click', loginRequest, false);

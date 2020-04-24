@@ -1,4 +1,5 @@
 function findID(movieID){ 
+    console.log("findId")
     console.log(movieID)
     sendID(movieID, (res) =>{
         response = JSON.parse(res.response)

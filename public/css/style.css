@@ -35,6 +35,10 @@ th, td{
 
 }
 
+#login-form{
+    padding: 10% 10%;
+}
+
 .movieSelection{
     padding-top: 3%;
 }

@@ -1,6 +1,5 @@
-# Note: Only if you have a GPU
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'# Note: Only if you have a GPU
 
 import pandas as pd 
 from sklearn.model_selection import train_test_split
@@ -77,6 +76,7 @@ def training(ratings_pivot):
 
 def test(user_recc,xtrain, inputLayer, outputLayer): 
     '''
+    Predicts User's Recommendations
     '''
     global sess
     user_recc = user_recc.split(",")

@@ -11,7 +11,7 @@ const dbConnection = require("../config/mongoConnection");
 var ObjectID = require('mongodb').ObjectID;
 const movies = mongoCollections.movies;
 
-const movies = require('./pushToDB')
+const movies = require('./movies')
 const users = require('./users')
 
 const main = async() => { 

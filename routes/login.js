@@ -23,6 +23,7 @@ passport.use(new JsonStrategy(
                 if (res === true){
                     return done(null, user)
                 }else{
+                    console.log("Incorrect Password")
                     return done(null, false, {message: "Incorrect passord"})
                 }
             })
@@ -45,20 +46,38 @@ passport.deserializeUser(function(id, cb) {
 
 router.post("/", function (req, res, next){
     console.log(new Date().toUTCString() + ": " + req.method + " " + req.originalUrl)
+
+    loginData = req.body; 
+    let errors = [];
+    console.log(req.body)
+    if (!loginData.username){
+        console.log("No username provided")
+        errors.push("No username provided"); 
+    }
+
+    if (!loginData.password){ 
+        console.log("No password provided")
+        errors.push("No password provided")
+    }
+
+    if (errors.length > 0){ 
+        console.log(errors)
+        return res.render('login/form', {message: errors})
+    }
+
     passport.authenticate('json', function(err, user, info){
-        // Authentication Failed Display Error Msg 
         if (err){
             return next(err); 
         }
         if(!user){
-            //TODO 
-            console.log("Authentication Fail")
+            return res.render('login/form', {message: "Invalid User"})
         }
-        //Authentication Succeeded Redirect to Home Page 
+
         req.logIn(user, function(err){
             if(err){
                 return next(err); 
             }
+
             req.session.user = {id: user._id, user: user.username}
             res.send({"url": "/home", "user": user});
 
